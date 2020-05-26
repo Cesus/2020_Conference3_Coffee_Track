@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Wrapping the layout into /layout to make the viewmodel available with data binding. -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="coffeeTrackerViewModel"
+            type="com.example.mycoffeetracker.coffeetracker.CoffeeTrackerViewModel" />
+    </data>
+
+    <!-- Start of the visible fragment layout using ConstraintLayout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".coffeetracker.CoffeeTrackerFragment">
+
+        <!-- Should have been a recyclerviewer but I didn't learn it -->
+
+        <ScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="405dp"
+            android:layout_height="556dp"
+            app:layout_constraintBottom_toTopOf="@+id/clear_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/titleText"
+            app:layout_constraintVertical_bias="0.234">
+
+            <!-- Displays all coffee logs -->
+
+            <TextView
+                android:id="@+id/textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin"
+                android:layout_marginTop="@dimen/margin"
+                android:layout_marginEnd="@dimen/margin"
+                android:text="@{coffeeTrackerViewModel.coffeesString}" />
+        </ScrollView>
+
+        <Button
+            android:id="@+id/clear_button"
+            style="@style/CoffeeButtons"
+            android:layout_width="109dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginBottom="48dp"
+            android:onClick="@{() -> coffeeTrackerViewModel.onClear()}"
+            android:text="@string/clear"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/start_button"
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="48dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:backgroundTint="#FFF"
+            android:onClick="@{() -> coffeeTrackerViewModel.onStartTracking()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.631"
+            app:layout_constraintStart_toEndOf="@+id/clear_button"
+            app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@android:drawable/ic_input_add"
+            app:tint="@color/colorPrimary" />
+
+        <!-- Not actually shown when app runs, acts like a horizontal bar -->
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="166dp"
+            android:layout_height="19dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.065"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Text format of data:" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
